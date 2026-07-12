@@ -11,9 +11,9 @@ class Rick_And_Morty:
             async with session.get(self.URL, ssl=False) as response:
                 if response.status == 200:
                     data = await response.json()
-                    print("Полученные данные:", data)
+                    return f"Полученные данные: {data}"
                 else:
-                    print(f"Ошибка: {response.status}")
+                    return f"Ошибка: {response.status}"
 
     async def get_character(self, id_character: int):
         async with aiohttp.ClientSession() as session:
@@ -34,20 +34,20 @@ class Rick_And_Morty:
                     async with session.get(f"{self.URL}/character/{random.randint(1, total)}", ssl=False) as response:
                         if response.status == 200:
                             data = await response.json()
-                            print("Полученные данные", data)
+                            return data
                         else:
-                            print(f"Ошибка: {response.status}")
+                            return f"Ошибка: {response.status}"
                 else:
-                    print(f"Ошибка: {response_total_character.status}")
+                    return f"Ошибка: {response_total_character.status}"
 
     async def search_by_name(self, name: str):
         async with aiohttp.ClientSession() as session:
             async with session.get(f"{self.URL}/character/?name={name}", ssl=False) as response:
                 if response.status == 200:
                     data = await response.json()
-                    print("Полученные данные", data)
+                    return f"Полученные данные, {data}"
                 else:
-                    print(f"Ошибка: {response.status}")
+                    return f"Ошибка: {response.status}"
 
     async def search_by_status(self, status: str):
 
@@ -55,16 +55,13 @@ class Rick_And_Morty:
         staus_lower = status.lower()
 
         if staus_lower not in valid_statuses:
-            print(f"Неверный статус. Допустимые: {', '.join(valid_statuses)}")
-            return
+            return f"Неверный статус. Допустимые: {', '.join(valid_statuses)}"
 
         async with aiohttp.ClientSession() as session:
             async with session.get(f"{self.URL}/character/?status={staus_lower}", ssl=False) as response:
                 if response.status == 200:
                     data = await response.json()
-                    print("Полученные данные", data)
+                    return f"Полученные данные, {data}"
                 else:
-                    print(f"Ошибка: {response.status}")
+                    return f"Ошибка: {response.status}"
 
-
-asyncio.run(Rick_And_Morty().search_by_status("dead"))

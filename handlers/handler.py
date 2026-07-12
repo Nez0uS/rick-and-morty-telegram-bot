@@ -15,7 +15,7 @@ async def start_handler(msg: Message):
     )
 
 
-@router.callback_query(lambda c: c.data == "main_menu")
+@router.callback_query(F.data == "main_menu")
 async def show_main_menu(callback_query: CallbackQuery):
     await callback_query.answer()
     await callback_query.answer("Выбери: что тебя интересует",
