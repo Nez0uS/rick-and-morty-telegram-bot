@@ -2,7 +2,7 @@ import asyncio
 import aiohttp
 
 
-class Rick_And_Morty:
+class RickAndMortyAPI:
 
     URL = "https://rickandmortyapi.com/api"
 
@@ -51,6 +51,7 @@ class Rick_And_Morty:
 
     async def search_by_status(self, status: str):
 
+        import random
         valid_statuses = {"alive", "dead", "unknown"}
         staus_lower = status.lower()
 
@@ -61,6 +62,8 @@ class Rick_And_Morty:
             async with session.get(f"{self.URL}/character/?status={staus_lower}", ssl=False) as response:
                 if response.status == 200:
                     data = await response.json()
-                    return f"Полученные данные, {data}"
+
+                    total = len(data["results"])
+                    return data["results"][random.randint(0, total-1)]
                 else:
                     return f"Ошибка: {response.status}"

@@ -1,14 +1,14 @@
 from aiogram import F, Router
 from aiogram.types import CallbackQuery
 
-from services.Rick_and_Morty_API import Rick_And_Morty
+from services.RickAndMortyAPI import RickAndMortyAPI
 from keyboards.main_menu import main_menu
 
 
-router = Router()
-api = Rick_And_Morty()
+random_character_router = Router()
+api = RickAndMortyAPI()
 
-@router.callback_query(F.data == "random")
+@random_character_router.callback_query(F.data == "random")
 async def random_character(callback_query: CallbackQuery):
     await callback_query.answer()
     character = await api.get_random_character()
@@ -22,3 +22,5 @@ async def random_character(callback_query: CallbackQuery):
         caption=text,
         reply_markup=main_menu()
     )
+
+    await callback_query.message.delete()
