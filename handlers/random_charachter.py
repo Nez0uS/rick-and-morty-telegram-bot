@@ -1,7 +1,7 @@
 from aiogram import F, Router
 from aiogram.types import CallbackQuery
 
-from services.RickAndMortyAPI import RickAndMortyAPI
+from services.rick_and_morty_api import RickAndMortyAPI
 from keyboards.main_menu import main_menu
 
 

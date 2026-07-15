@@ -3,7 +3,7 @@ from aiogram.types import Message, CallbackQuery
 from aiogram.fsm.context import FSMContext
 from aiogram.fsm.state import State, StatesGroup
 
-from services.RickAndMortyAPI import RickAndMortyAPI
+from services.rick_and_morty_api import RickAndMortyAPI
 from keyboards.main_menu import main_menu
 
 api = RickAndMortyAPI()
