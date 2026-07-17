@@ -1,5 +1,5 @@
 import aiohttp
-
+import random
 
 class RickAndMortyAPI:
 
@@ -19,12 +19,12 @@ class RickAndMortyAPI:
             async with session.get(f"{self.URL}/character/{id_character}", ssl=False) as response:
                 if response.status == 200:
                     data = await response.json()
-                    return f"Имя: {data['info']['name']}\n"
+                    result = data['info']['name']
+                    return f"Имя: {result}\n"
                 else:
                     return f"Ошибка: {response.status}"
 
     async def get_random_character(self):
-        import random
         async with aiohttp.ClientSession() as session:
             async with session.get(f"{self.URL}/character/", ssl=False) as response_total_character:
                 if response_total_character.status == 200:
@@ -44,25 +44,26 @@ class RickAndMortyAPI:
             async with session.get(f"{self.URL}/character/?name={name}", ssl=False) as response:
                 if response.status == 200:
                     data = await response.json()
-                    return data["results"]
+                    result = data["results"]
+                    return result
                 else:
                     return f"Ошибка: {response.status}"
 
     async def search_by_status(self, status: str):
 
-        import random
         valid_statuses = {"alive", "dead", "unknown"}
-        staus_lower = status.lower()
+        status_lower = status.lower()
 
-        if staus_lower not in valid_statuses:
+        if status_lower not in valid_statuses:
             return f"Неверный статус. Допустимые: {', '.join(valid_statuses)}"
 
         async with aiohttp.ClientSession() as session:
-            async with session.get(f"{self.URL}/character/?status={staus_lower}", ssl=False) as response:
+            async with session.get(f"{self.URL}/character/?status={status_lower}", ssl=False) as response:
                 if response.status == 200:
                     data = await response.json()
 
                     total = len(data["results"])
-                    return data["results"][random.randint(0, total-1)]
+                    result = data["results"][random.randint(0, total - 1)]
+                    return result
                 else:
                     return f"Ошибка: {response.status}"
