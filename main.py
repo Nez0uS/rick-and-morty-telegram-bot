@@ -7,9 +7,9 @@ from aiogram.fsm.storage.memory import MemoryStorage
 from config import Config
 
 from handlers.handler import start_router
-from handlers.random_charachter import random_character_router as random_character
-from handlers.search_by_name import search_by_name_router as search_by_name
-from handlers.search_by_status import search_by_status_router as search_by_status
+from handlers.random_charachter import random_character_router
+from handlers.search_by_name import search_by_name_router
+from handlers.search_by_status import search_by_status_router
 
 
 
@@ -19,9 +19,9 @@ async def main():
     dp = Dispatcher(storage=MemoryStorage())
 
     dp.include_router(start_router)
-    dp.include_router(random_character)
-    dp.include_router(search_by_name)
-    dp.include_router(search_by_status)
+    dp.include_router(random_character_router)
+    dp.include_router(search_by_name_router)
+    dp.include_router(search_by_status_router)
 
     await bot.delete_webhook(drop_pending_updates=True)
     await dp.start_polling(bot, allowed_updates=dp.resolve_used_update_types())
