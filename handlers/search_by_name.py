@@ -6,7 +6,7 @@ from aiogram.fsm.state import State, StatesGroup
 from services.rick_and_morty_api import RickAndMortyAPI
 from keyboards.main_menu import main_menu
 
-api = RickAndMortyAPI()
+rick_and_morty_client = RickAndMortyAPI()
 search_by_name_router = Router()
 
 class SearchByName(StatesGroup):
@@ -26,7 +26,7 @@ async def search_by_name(callback_query: CallbackQuery, state: FSMContext):
 async def search_result(message: Message, state: FSMContext):
     data = await state.get_data()
     bot_message_id = data.get('bot_message_id')
-    result = await api.search_by_name(message.text)
+    result = await rick_and_morty_client.search_by_name(message.text)
 
     text = (f"Вы ввели: {message.text}\n"
             f"Результат поиска:\n\n")

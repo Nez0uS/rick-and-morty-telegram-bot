@@ -6,7 +6,7 @@ from keyboards.main_menu import main_menu
 from keyboards.status_keyboards import status_keyboards
 
 search_by_status_router = Router()
-api = RickAndMortyAPI()
+rick_and_morty_client = RickAndMortyAPI()
 
 
 @search_by_status_router.callback_query(F.data == "search_by_status")
@@ -19,7 +19,7 @@ async def status_keyboard(callback_query: CallbackQuery):
 async def status_keyboard(callback_query: CallbackQuery):
     await callback_query.answer()
     status = callback_query.data
-    result = await api.search_by_status(status)
+    result = await rick_and_morty_client.search_by_status(status)
 
     text = (f"Имя: {result['name']}\n\n"
             f"Статус: {result['status']}\n"
